@@ -29,3 +29,17 @@ echo "</span>";
 <?php
 include(SITE_ROOT."/layout/footer.php");
 ?>
+<tr>
+<td style="text-align: right;">
+<input type="button" onClick="enviaFormulario(document.formulario);"
+name="enviar" value="Enviar">
+</td>
+<td>
+<input type="button" onClick="limpaFormulario(document.formulario);"
+name="limpa" value="Limpa">
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
