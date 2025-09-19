@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$sql .= " VALUES ";
 		$sql .= " ('".$nome."', '".$preco."')";
 		$result = mysqli_query($link, $sql);
-		header("Location: /programacao2-/sistema/admin/prod/add.php");
+		header("Location: /programacao2-/sistema/prod/add.php");
 		exit;
 	}
 }

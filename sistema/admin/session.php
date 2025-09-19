@@ -28,7 +28,7 @@ function contaValida($username, $password) {
     session_start();
     session_unset();
     session_destroy();
-    header("Location: /programacao2-/sistema/admin/login.php");
+    header("Location:/programacao2-/sistema/admin/login.php");
     exit;
 }
     function validaSessao() {
