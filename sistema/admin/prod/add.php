@@ -14,16 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$error .= " Preço obrigatório! ";
 	}
 	if (!$error) {
-		$link = mysqli_connect("localhost", "root", "", "sistema");
-		$sql = "";
-		$sql .= " INSERT INTO prod ";
-		$sql .= " (nome, preco) ";
-		$sql .= " VALUES ";
-		$sql .= " ('".$nome."', '".$preco."')";
-		$result = mysqli_query($link, $sql);
-		header("Location: /programacao2-/sistema/admin/prod/add.php");
-		exit;
-	}
+        $link = mysqli_connect("localhost", "root", "", "sistema");
+        $categoria_id_sql = ($categoria_id && is_numeric($categoria_id)) ? $categoria_id : "NULL";
+        $sql = "";
+        $sql .= " INSERT INTO prod ";
+        $sql .= " (nome, preco, categoria_id) ";
+        $sql .= " VALUES ";
+        $sql .= " ('".$nome."', '".$preco."', ".$categoria_id_sql.")";
+        $result = mysqli_query($link, $sql);
+        header("Location: /programacao2-/sistema/admin/prod/add.php");
+        exit;
+    }
 }
 
 include("../../header.php");
@@ -41,18 +42,38 @@ if (isset($error)) {
 }
 ?>
 
+<?php
+$link = mysqli_connect("localhost", "root", "", "sistema");
+$sqlCategorias = "SELECT id, nome FROM categoria ORDER BY nome";
+$resultCategorias = mysqli_query($link, $sqlCategorias);
+?>
+
 <form method="POST">
 	<table>
 		<tr>
 			<td style="text-align: right;">Nome:</td>
 			<td>
-				<input type="text" name="nome" value="<?=isset($nome)?$nome:"";?>">
+				<input type="text" name="nome" value="<?=isset($nome) ? htmlspecialchars($nome) : "";?>">
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">Preço:</td>
 			<td>
-				<input type="text" name="preco" value="<?=isset($preco)?$preco:"";?>">
+				<input type="text" name="preco" value="<?=isset($preco) ? htmlspecialchars($preco) : "";?>">
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">Categoria:</td>
+			<td>
+				<select name="categoria_id">
+					<option value="">-- Selecione --</option>
+					<?php
+					while ($cat = mysqli_fetch_assoc($resultCategorias)) {
+						$selected = (isset($categoria_id) && (string)$categoria_id === (string)$cat['id']) ? "selected" : "";
+						echo "<option value='" . $cat['id'] . "' $selected>" . htmlspecialchars($cat['nome']) . "</option>";
+					}
+					?>
+				</select>
 			</td>
 		</tr>
 		<tr>
