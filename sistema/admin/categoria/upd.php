@@ -26,9 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$nome) {
         $error .= "Nome obrigatório! ";
     }
-    if (!$preco) {
-        $error .= "Preço obrigatório!";
-    }
  
     if (!$error) {
         $link = mysqli_connect("localhost", "root", "", "sistema");

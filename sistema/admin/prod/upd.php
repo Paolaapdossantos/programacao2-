@@ -32,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	if (!$error) {
 		$link = mysqli_connect("localhost", "root", "", "sistema");
-		$sql = "UPDATE prod SET nome = '".$nome."', preco = '".$preco."' WHERE id = '".$id."'";
+		$categoria_id = $_POST['categoria_id'] ?? null;
+		$sql = "UPDATE prod SET nome = '".$nome."', preco = '".$preco."', categoria_id = '".$categoria_id."' WHERE id = '".$id."'";
 		$result = mysqli_query($link, $sql);
 		header("Location: /programacao2-/sistema/admin/prod");
 		exit;
@@ -53,6 +54,13 @@ if (isset($error)) {
 	echo "</span>";
 }
 ?>
+
+<?php
+$link = mysqli_connect("localhost", "root", "", "sistema");
+$sqlCategorias = "SELECT id, nome FROM categoria ORDER BY nome";
+$resultCategorias = mysqli_query($link, $sqlCategorias);
+?>
+
 <form method="POST">
 	<input type="hidden" name="id" value="<?=isset($id)?$id:"";?>">
 	<table>
@@ -68,25 +76,33 @@ if (isset($error)) {
 				<input type="text" name="preco" value="<?=isset($preco)?$preco:"";?>">
 			</td>
 		</tr>
+
+			<table>
+			<tr>
+			<td style="text-align: right;">Categoria:</td>
+			<td>
+				<select name="categoria_id">
+    <option value="">-- Selecione --</option>
+    <?php
+    while ($cat = mysqli_fetch_assoc($resultCategorias)) {
+        $selected = ((string)$categoria_id === (string)$cat['id']) ? "selected" : "";
+        echo "<option value='" . $cat['id'] . "' $selected>" . htmlspecialchars($cat['nome']) . "</option>";
+    }
+    ?>
+</select>
+			</td>
+		</tr>
 		<tr>
+		<td colspan="2">
+			<button style ="background-color: #f8c8dc;"><a href="/programacao2-/sistema/admin/prod/" style="color: black;">Voltar</a></button>	
+			</td>
+		</tr>
+	
+			<tr>
 			<td colspan="2" style="text-align: center;">
 				<input type="submit" name="submit" value="Atualizar">
 			</td>
 		</tr>
-         <tr>
-            <td style="text-align: right;">Categoria:</td>
-            <td>
-                <select name="categoria_id">
-                    <option value="">-- Selecione --</option>
-                    <?php
-                    while ($cat = mysqli_fetch_assoc($resultCategorias)) {
-                        $selected = ($categoria_id_atual == $cat['id']) ? "selected" : "";
-                        echo "<option value='" . $cat['id'] . "' $selected>" . htmlspecialchars($cat['nome']) . "</option>";
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
 	</table>
 </form>
 

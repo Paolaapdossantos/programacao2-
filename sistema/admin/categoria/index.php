@@ -24,7 +24,7 @@ include("../menu.php");
         ?>
         <tr>
             <td><?= htmlspecialchars($row["nome"]); ?></td>
-            <td><a href="/programacao2-/sistema/admin/categoria/edit.php?id=<?= $row["id"]; ?>" style="color: black;">Editar</a></td>
+            <td><a href="/programacao2-/sistema/admin/categoria/upd.php?id=<?= $row["id"]; ?>" style="color: black;">Editar</a></td>
             <td><a href="/programacao2-/sistema/admin/categoria/del.php?id=<?= $row["id"]; ?>" style="color: black;">Apagar</a></td>
         </tr>
         <?php

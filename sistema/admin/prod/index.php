@@ -15,24 +15,29 @@ include("../menu.php");
 	<tr>
 		<th>Nome</th>
 		<th>Preço</th>
+		<th>Categoria</th>
 		<th>Editar</th>
 		<th>Apagar</th>
-		<th>Categoria</th>
 	</tr>
+
 	<?php
 	$link = mysqli_connect("localhost", "root", "", "sistema");
-	$sql = "SELECT * FROM prod ORDER BY nome;";
-	$result = mysqli_query($link, $sql);
+		$sql = "
+		SELECT p.id, p.nome AS produto, p.preco, c.nome AS categoria
+		FROM prod p
+		LEFT JOIN categoria c ON p.categoria_id = c.id
+		ORDER BY p.nome;";
+		$result = mysqli_query($link, $sql);
 	while ($row = mysqli_fetch_assoc($result)) {
-		?>
+	?>
 		<tr>
-			<td><?=$row["nome"];?></td>
-			<td><?=$row["preco"];?></td>
-			<td><a href="/programacao2-/sistema/admin/prod/upd.php?id=<?=$row["id"];?>" style="color: black;">editar</a></td>
-			<td><a href="/programacao2-/sistema/admin/prod/del.php?id=<?=$row["id"];?>"style="color: black;">Apagar</a></td>
-            <td><a href="/programacao2-/sistema/admin/categoria/index.php?id=<?=$row["id"];?>"style="color: black;">categoria</a></td>
+		<td><?=$row["produto"];?></td>
+		<td><?=$row["preco"];?></td>
+		<td><?=$row["categoria"];?></td>
+		<td><a href="/programacao2-/sistema/admin/prod/upd.php?id=<?=$row["id"];?>" style="color: black;">editar</a></td>
+		<td><a href="/programacao2-/sistema/admin/prod/del.php?id=<?=$row["id"];?>"style="color: black;">Apagar</a></td>
 		</tr>
-		<?php
+	<?php
 	}
 	?>
 </table>

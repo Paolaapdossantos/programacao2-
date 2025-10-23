@@ -12,12 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$error .= " Nome obrigatório! ";
 	}
 	if (!$error) {
-		$link = mysqli_connect("localhost", "root", "", "sistema");
-		$sql = "INSERT INTO categoria (nome) VALUES ('".$nome."')";
-		$result = mysqli_query($link, $sql);
-		header("Location: /programacao2-/sistema/admin/categoria/add.php");
-		exit;
-	}
+        $link = mysqli_connect("localhost", "root", "", "sistema");
+        $categoria_id_sql = ($categoria_id && is_numeric($categoria_id)) ? $categoria_id : "NULL";
+        $sql = "";
+        $sql .= " INSERT INTO prod ";
+        $sql .= " (nome, preco, categoria_id) ";
+        $sql .= " VALUES ";
+        $sql .= " ('".$nome."', '".$preco."', ".$categoria_id_sql.")";
+        $result = mysqli_query($link, $sql);
+        header("Location: /programacao2-/sistema/admin/prod/upd.php");
+        exit;
+    }
 }
 
 include("../../header.php");
@@ -47,6 +52,11 @@ if (isset($error)) {
 		<tr>
 			<td colspan="2" style="text-align: center;">
 				<input type="submit" name="submit" value="Cadastrar">
+			</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="text-align: center;">
+			<button style ="background-color: #f8c8dc;"><a href="/programacao2-/sistema/admin/categoria/" style="color: black;">Voltar</a></button>	
 			</td>
 		</tr>
 	</table>
