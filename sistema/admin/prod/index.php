@@ -28,7 +28,7 @@ include("../menu.php");
 		<tr>
 			<td><?=$row["nome"];?></td>
 			<td><?=$row["preco"];?></td>
-			<td><a href="/programacao2-/sistema/admin/prod/add.php?id=<?=$row["id"];?>" style="color: black;">editar</a></td>
+			<td><a href="/programacao2-/sistema/admin/prod/upd.php?id=<?=$row["id"];?>" style="color: black;">editar</a></td>
 			<td><a href="/programacao2-/sistema/admin/prod/del.php?id=<?=$row["id"];?>"style="color: black;">Apagar</a></td>
             <td><a href="/programacao2-/sistema/admin/categoria/index.php?id=<?=$row["id"];?>"style="color: black;">categoria</a></td>
 		</tr>
