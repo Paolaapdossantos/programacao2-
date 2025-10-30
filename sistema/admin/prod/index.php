@@ -6,13 +6,13 @@ include("../../header.php");
 include("../menu.php");
 ?>
 
-<h3>PRODUTOS</h3>
+<h3 style="text-align: center;"> PRODUTOS</h3>
 
 <a href="/programacao2-/sistema/admin/prod/add.php" style="color: black;"> Adicionar</a>
 
 <br><br>
-<table border="1">
-	<tr>
+ <table border="2" cellpadding="5" cellspacing="0" style="margin: 0 auto; border-collapse: collapse;">
+        <tr style="background-color: #616353;">
 		<th>Nome</th>
 		<th>Preço</th>
 		<th>Categoria</th>
