@@ -3,8 +3,10 @@
 include("../config.inc.php");
 include("../session.php");
 validaSessao();
+$id_usuario_logado = $_SESSION["CONTA_ID"]; 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") { // Isso verifica se o formulário foi enviado via método POST, ou seja, se o usuário clicou em “Salvar”, “Enviar”, etc.//
 	extract($_POST);
 	$error = "";
 	if (!$nome) {
@@ -18,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $categoria_id_sql = ($categoria_id && is_numeric($categoria_id)) ? $categoria_id : "NULL";
         $sql = "";
         $sql .= " INSERT INTO prod ";
-        $sql .= " (nome, preco, categoria_id) ";
+        $sql .= " (nome, preco, categoria_id,id_usuario) ";
         $sql .= " VALUES ";
-        $sql .= " ('".$nome."', '".$preco."', ".$categoria_id_sql.")";
+        $sql .= " ('".$nome."', '".$preco."', ".$categoria_id_sql.", ".$id_usuario_logado.")";
         $result = mysqli_query($link, $sql);
         header("Location: /programacao2-/sistema/admin/prod/add.php");
         exit;
